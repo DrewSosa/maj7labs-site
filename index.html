@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maj7 Labs</title>
+<meta name="description" content="Small, careful software for people who write music. Makers of ScoreVid.">
+<meta property="og:title" content="Maj7 Labs">
+<meta property="og:description" content="Small, careful software for people who write music. Makers of ScoreVid.">
+<meta property="og:image" content="https://maj7labs.com/assets/og.png">
+<meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400;500;600&family=Noto+Music&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5F6F8;
+  --ink: #1B1E27;
+  --muted: #5D6273;
+  --hairline: #DADDE4;
+  --accent: #5B47C8;          /* the Lydian violet */
+  --accent-soft: #E9E5FA;
+  --card: #FFFFFF;
+  --serif: "EB Garamond", Georgia, serif;
+  --sans: "Instrument Sans", -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #13151C; --ink: #ECEDF2; --muted: #9A9FB0; --hairline: #2A2E3A;
+    --accent: #A496F5; --accent-soft: #262140; --card: #1B1E27;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #13151C; --ink: #ECEDF2; --muted: #9A9FB0; --hairline: #2A2E3A;
+  --accent: #A496F5; --accent-soft: #262140; --card: #1B1E27;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 17px/1.6 var(--sans);
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* ---- hero: the wordmark and the chord it's named after */
+.hero {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
+  min-height: min(88vh, 760px); padding: 72px 0 56px;
+}
+.wordmark {
+  font: 500 clamp(64px, 11vw, 132px)/0.9 var(--serif); letter-spacing: -0.02em; margin: 0;
+}
+.wordmark sup { font-size: 0.5em; vertical-align: 0; position: relative; top: -0.72em; margin-left: 0.02em; letter-spacing: 0; }
+.lede { font: 400 clamp(22px, 2.6vw, 28px)/1.35 var(--serif); margin: 28px 0 0; max-width: 26ch; }
+.lede em { font-style: italic; }
+.contact { margin: 28px 0 0; color: var(--muted); font-size: 16px; }
+.contact a { color: var(--ink); text-decoration-color: var(--hairline); text-underline-offset: 4px; }
+.contact a:hover { text-decoration-color: var(--accent); }
+
+.chord { justify-self: center; width: 100%; max-width: 420px; text-align: center; }
+.chord svg { width: 100%; height: auto; display: block; overflow: visible; }
+.staff line { stroke: var(--ink); stroke-width: 1.2; }
+.clef { font: 92px "Noto Music"; fill: var(--ink); }
+.symbol { font-family: var(--serif); fill: var(--ink); }
+.note .head { fill: var(--ink); transition: fill .25s; }
+.note .hole { fill: var(--paper); }
+.note.on .head { fill: var(--accent); }
+.note { opacity: 0; animation: land .5s cubic-bezier(.2,.7,.3,1) forwards; }
+.note:nth-of-type(1) { animation-delay: .35s; }
+.note:nth-of-type(2) { animation-delay: .55s; }
+.note:nth-of-type(3) { animation-delay: .75s; }
+.note:nth-of-type(4) { animation-delay: .95s; }
+@keyframes land { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .note { animation: none; opacity: 1; } }
+
+.play {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 10px;
+  font: 500 15px/1 var(--sans); color: var(--ink); background: transparent;
+  border: 1px solid var(--hairline); border-radius: 999px; padding: 12px 18px 12px 14px; cursor: pointer;
+}
+.play:hover { border-color: var(--accent); }
+.play svg { width: 16px; height: 16px; fill: var(--accent); }
+.chord figcaption { margin-top: 12px; font-size: 14px; color: var(--muted); }
+
+/* ---- ScoreVid */
+.product {
+  display: grid; grid-template-columns: 320px 1fr; gap: 64px; align-items: center;
+  padding: 72px 0; border-top: 1px solid var(--hairline);
+}
+.phone {
+  width: 100%; max-width: 320px; justify-self: center; border-radius: 40px; overflow: hidden;
+  border: 8px solid var(--ink); background: var(--card);
+  box-shadow: 0 30px 60px -30px rgba(27, 30, 39, .45);
+}
+.phone img { display: block; width: 100%; height: auto; }
+.kicker { margin: 0 0 10px; color: var(--muted); font-size: 15px; }
+.status { display: inline-block; font-size: 13px; font-weight: 500; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 3px 10px; margin-left: 8px; vertical-align: 2px; }
+h2 { font: 500 clamp(44px, 6vw, 64px)/1 var(--serif); letter-spacing: -0.01em; margin: 0; }
+.tagline { font: italic 400 24px/1.3 var(--serif); color: var(--muted); margin: 10px 0 24px; }
+.product p.body { max-width: 52ch; margin: 0; }
+.facts { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; max-width: 52ch; }
+.facts li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
+.facts li::before { content: ""; width: 9px; height: 7px; margin-top: 9px; border-radius: 50%; background: var(--accent); transform: rotate(-20deg); }
+
+/* ---- next */
+.next { padding: 64px 0 80px; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 320px 1fr; gap: 64px; }
+.next h3 { font: 500 28px/1.2 var(--serif); margin: 0; }
+.next p { margin: 0; max-width: 52ch; }
+
+footer { border-top: 1px solid var(--hairline); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer a { color: inherit; }
+
+@media (max-width: 820px) {
+  .hero { grid-template-columns: 1fr; min-height: 0; gap: 40px; padding: 48px 0 48px; }
+  .chord { max-width: 340px; }
+  .product, .next { grid-template-columns: 1fr; gap: 36px; padding: 56px 0; }
+  .phone { max-width: 260px; border-radius: 34px; }
+  .next { gap: 12px; }
+}
+@media (max-width: 480px) { .wrap { padding: 0 16px; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <section class="hero">
+    <div>
+      <h1 class="wordmark" aria-label="Maj7 Labs">Maj<sup>7</sup> Labs</h1>
+      <p class="lede">Small, careful software for people who write music. We're starting with <em>ScoreVid</em>.</p>
+      <p class="contact">Say hello: <a href="mailto:hello@maj7labs.com">hello@maj7labs.com</a></p>
+    </div>
+
+    <figure class="chord" id="chord">
+      <svg viewBox="0 0 360 190" role="img" aria-labelledby="chord-title">
+        <title id="chord-title">A C major seventh chord, C E G B, written on a treble staff</title>
+        <text class="symbol" x="196" y="38" font-size="30">C<tspan font-size="19" dy="-9">maj7</tspan></text>
+        <g class="staff">
+          <line x1="20" x2="340" y1="60" y2="60"/><line x1="20" x2="340" y1="74" y2="74"/>
+          <line x1="20" x2="340" y1="88" y2="88"/><line x1="20" x2="340" y1="102" y2="102"/>
+          <line x1="20" x2="340" y1="116" y2="116"/>
+          <line x1="200" x2="240" y1="130" y2="130"/>
+          <line x1="340" x2="340" y1="60" y2="116"/>
+        </g>
+        <text class="clef" x="26" y="124">&#x1D11E;</text>
+        <!-- whole notes, lowest first: C4 (ledger line), E4, G4, B4 -->
+        <g class="note" data-f="261.63"><ellipse class="head" cx="220" cy="130" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="130" rx="4.6" ry="3.4" transform="rotate(-35 220 130)"/></g>
+        <g class="note" data-f="329.63"><ellipse class="head" cx="220" cy="116" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="116" rx="4.6" ry="3.4" transform="rotate(-35 220 116)"/></g>
+        <g class="note" data-f="392.00"><ellipse class="head" cx="220" cy="102" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="102" rx="4.6" ry="3.4" transform="rotate(-35 220 102)"/></g>
+        <g class="note" data-f="493.88"><ellipse class="head" cx="220" cy="88" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="88" rx="4.6" ry="3.4" transform="rotate(-35 220 88)"/></g>
+      </svg>
+      <button class="play" type="button" id="play">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>
+        Play the chord
+      </button>
+      <figcaption>C, E, G and B: the chord we're named after.</figcaption>
+    </figure>
+  </section>
+
+  <section class="product" aria-labelledby="scorevid">
+    <div class="phone">
+      <img src="assets/scorevid-editor.jpg" width="720" height="1565" loading="lazy"
+           alt="ScoreVid on an iPhone, playing a piano score that scrolls with the music, with the best moment (bars 50 to 60) chosen and a Make video button">
+    </div>
+    <div>
+      <p class="kicker">Our first app <span class="status">In private testing</span></p>
+      <h2 id="scorevid">ScoreVid</h2>
+      <p class="tagline">By Composers, For Composers</p>
+      <p class="body">Turn a MuseScore score into a video that scrolls in time with the music, ready for TikTok, Reels and YouTube Shorts. ScoreVid finds the moment worth posting and plays it with Muse Sounds or your own recording.</p>
+      <ul class="facts">
+        <li>Your own recording lines up with the score on its own, and you can nudge it if you need to.</li>
+        <li>Perfect loops, and every note lit up as it sounds, with lyrics that fill in karaoke-style.</li>
+        <li>On iPhone and the web, in English, Japanese, Korean, Spanish, Portuguese, French and German.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="next" aria-labelledby="next">
+    <h3 id="next">What's next</h3>
+    <p>Instruments and effects for your DAW. If you'd like to hear when they're ready, or try ScoreVid early, write to <a href="mailto:hello@maj7labs.com">hello@maj7labs.com</a>.</p>
+  </section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Maj7 Labs</span>
+    <a href="mailto:hello@maj7labs.com">hello@maj7labs.com</a>
+  </div>
+</footer>
+
+<script>
+// "Play the chord": an electric-piano-ish tone per note (a sine with a short bell partial), arpeggiated
+// upwards then held, each notehead lighting up as it sounds.
+(() => {
+  const button = document.getElementById("play");
+  const notes = [...document.querySelectorAll("#chord .note")];
+  let ctx;
+  function tone(f, at) {
+    const out = ctx.createGain();
+    out.gain.setValueAtTime(0, at);
+    out.gain.linearRampToValueAtTime(0.16, at + 0.01);
+    out.gain.exponentialRampToValueAtTime(0.0008, at + 3.2);
+    out.connect(ctx.destination);
+    const body = ctx.createOscillator();
+    body.frequency.value = f;
+    body.connect(out);
+    const bell = ctx.createOscillator(), bellGain = ctx.createGain();
+    bell.frequency.value = f * 7.01;
+    bellGain.gain.setValueAtTime(0.05, at);
+    bellGain.gain.exponentialRampToValueAtTime(0.0001, at + 0.35);
+    bell.connect(bellGain).connect(out);
+    for (const o of [body, bell]) { o.start(at); o.stop(at + 3.3); }
+  }
+  button.addEventListener("click", () => {
+    ctx ??= new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === "suspended") ctx.resume();
+    const start = ctx.currentTime + 0.05;
+    notes.forEach((n, i) => {
+      tone(parseFloat(n.dataset.f), start + i * 0.12);
+      setTimeout(() => n.classList.add("on"), 50 + i * 120);
+    });
+    setTimeout(() => notes.forEach(n => n.classList.remove("on")), 2600);
+  });
+})();
+</script>
+</body>
+</html>

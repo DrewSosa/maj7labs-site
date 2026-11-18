@@ -4,13 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maj7 Labs</title>
-<meta name="description" content="Small, careful software for people who write music. Makers of ScoreVid.">
+<meta name="description" content="Software for people who write music, made by a composer. Makers of ScoreVid.">
 <meta property="og:title" content="Maj7 Labs">
-<meta property="og:description" content="Small, careful software for people who write music. Makers of ScoreVid.">
+<meta property="og:description" content="Software for people who write music, made by a composer. Makers of ScoreVid.">
 <meta property="og:image" content="https://maj7labs.com/assets/og.png">
 <meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<meta property="og:url" content="https://maj7labs.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://maj7labs.com/">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400;500;600&family=Noto+Music&display=swap" rel="stylesheet">
@@ -50,22 +55,21 @@ a { color: inherit; }
 /* ---- hero: the wordmark and the chord it's named after */
 .hero {
   display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
-  min-height: min(88vh, 760px); padding: 72px 0 56px;
+  min-height: min(72vh, 640px); padding: 64px 0 40px;
 }
 .wordmark {
   font: 500 clamp(64px, 11vw, 132px)/0.9 var(--serif); letter-spacing: -0.02em; margin: 0;
 }
-.wordmark sup { font-size: 0.5em; vertical-align: 0; position: relative; top: -0.72em; margin-left: 0.02em; letter-spacing: 0; }
-.lede { font: 400 clamp(22px, 2.6vw, 28px)/1.35 var(--serif); margin: 28px 0 0; max-width: 26ch; }
+.wordmark sup { font-size: 0.46em; vertical-align: 0; position: relative; top: -0.8em; margin-left: 0.02em; letter-spacing: 0; }
+.lede { font: 400 clamp(22px, 2.6vw, 28px)/1.35 var(--serif); margin: 40px 0 0; max-width: 26ch; }
 .lede em { font-style: italic; }
-.contact { margin: 28px 0 0; color: var(--muted); font-size: 16px; }
-.contact a { color: var(--ink); text-decoration-color: var(--hairline); text-underline-offset: 4px; }
-.contact a:hover { text-decoration-color: var(--accent); }
 
 .chord { justify-self: center; width: 100%; max-width: 420px; text-align: center; }
 .chord svg { width: 100%; height: auto; display: block; overflow: visible; }
 .staff line { stroke: var(--ink); stroke-width: 1.2; }
-.clef { font: 92px "Noto Music"; fill: var(--ink); }
+.staff .ledger { stroke-width: 1.8; }
+.staff .final { stroke-width: 4; }
+.clef { font: 60px "Noto Music"; fill: var(--ink); }
 .symbol { font-family: var(--serif); fill: var(--ink); }
 .note .head { fill: var(--ink); transition: fill .25s; }
 .note .hole { fill: var(--paper); }
@@ -76,7 +80,7 @@ a { color: inherit; }
 .note:nth-of-type(3) { animation-delay: .75s; }
 .note:nth-of-type(4) { animation-delay: .95s; }
 @keyframes land { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .note { animation: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .note { animation: none; opacity: 1; } .note .head { transition: none; } }
 
 .play {
   margin-top: 18px; display: inline-flex; align-items: center; gap: 10px;
@@ -94,7 +98,7 @@ a { color: inherit; }
 }
 .phone {
   width: 100%; max-width: 320px; justify-self: center; border-radius: 40px; overflow: hidden;
-  border: 8px solid var(--ink); background: var(--card);
+  border: 8px solid #0E1016; background: var(--card);
   box-shadow: 0 30px 60px -30px rgba(27, 30, 39, .45);
 }
 .phone img { display: block; width: 100%; height: auto; }
@@ -105,7 +109,12 @@ h2 { font: 500 clamp(44px, 6vw, 64px)/1 var(--serif); letter-spacing: -0.01em; m
 .product p.body { max-width: 52ch; margin: 0; }
 .facts { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; max-width: 52ch; }
 .facts li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
-.facts li::before { content: ""; width: 9px; height: 7px; margin-top: 9px; border-radius: 50%; background: var(--accent); transform: rotate(-20deg); }
+.facts li::before { content: ""; width: 11px; height: 8px; margin-top: 8px; border-radius: 50%; background: var(--accent); transform: rotate(-20deg); }
+
+.cta { display: inline-block; margin-top: 32px; font: 500 15px/1 var(--sans); color: #fff; background: var(--accent); text-decoration: none; border-radius: 999px; padding: 14px 22px; }
+.cta:hover { filter: brightness(1.08); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta { color: #13151C; } :root:not([data-theme="light"]) .phone { box-shadow: 0 0 0 1px var(--hairline), 0 30px 60px -30px rgba(0,0,0,.6); } }
+:root[data-theme="dark"] .cta { color: #13151C; }
 
 /* ---- next */
 .next { padding: 64px 0 80px; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 320px 1fr; gap: 64px; }
@@ -118,7 +127,7 @@ footer a { color: inherit; }
 
 @media (max-width: 820px) {
   .hero { grid-template-columns: 1fr; min-height: 0; gap: 40px; padding: 48px 0 48px; }
-  .chord { max-width: 340px; }
+  .chord { max-width: 380px; }
   .product, .next { grid-template-columns: 1fr; gap: 36px; padding: 56px 0; }
   .phone { max-width: 260px; border-radius: 34px; }
   .next { gap: 12px; }
@@ -132,33 +141,32 @@ footer a { color: inherit; }
   <section class="hero">
     <div>
       <h1 class="wordmark" aria-label="Maj7 Labs">Maj<sup>7</sup> Labs</h1>
-      <p class="lede">Small, careful software for people who write music. We're starting with <em>ScoreVid</em>.</p>
-      <p class="contact">Say hello: <a href="mailto:hello@maj7labs.com">hello@maj7labs.com</a></p>
+      <p class="lede">Software for people who write music, made by a composer. First up: <em>ScoreVid</em>.</p>
     </div>
 
     <figure class="chord" id="chord">
       <svg viewBox="0 0 360 190" role="img" aria-labelledby="chord-title">
         <title id="chord-title">A C major seventh chord, C E G B, written on a treble staff</title>
-        <text class="symbol" x="196" y="38" font-size="30">C<tspan font-size="19" dy="-9">maj7</tspan></text>
+        <text class="symbol" x="208" y="40" font-size="30">C<tspan font-size="18" dy="-6">maj7</tspan></text>
         <g class="staff">
           <line x1="20" x2="340" y1="60" y2="60"/><line x1="20" x2="340" y1="74" y2="74"/>
           <line x1="20" x2="340" y1="88" y2="88"/><line x1="20" x2="340" y1="102" y2="102"/>
           <line x1="20" x2="340" y1="116" y2="116"/>
-          <line x1="200" x2="240" y1="130" y2="130"/>
-          <line x1="340" x2="340" y1="60" y2="116"/>
+          <line class="ledger" x1="204" x2="236" y1="130" y2="130"/>
+          <line x1="333" x2="333" y1="60" y2="116"/><line class="final" x1="338.5" x2="338.5" y1="60" y2="116"/>
         </g>
-        <text class="clef" x="26" y="124">&#x1D11E;</text>
+        <text class="clef" x="28" y="117">&#x1D11E;</text>
         <!-- whole notes, lowest first: C4 (ledger line), E4, G4, B4 -->
-        <g class="note" data-f="261.63"><ellipse class="head" cx="220" cy="130" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="130" rx="4.6" ry="3.4" transform="rotate(-35 220 130)"/></g>
-        <g class="note" data-f="329.63"><ellipse class="head" cx="220" cy="116" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="116" rx="4.6" ry="3.4" transform="rotate(-35 220 116)"/></g>
-        <g class="note" data-f="392.00"><ellipse class="head" cx="220" cy="102" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="102" rx="4.6" ry="3.4" transform="rotate(-35 220 102)"/></g>
-        <g class="note" data-f="493.88"><ellipse class="head" cx="220" cy="88" rx="10" ry="7"/><ellipse class="hole" cx="220" cy="88" rx="4.6" ry="3.4" transform="rotate(-35 220 88)"/></g>
+        <g class="note" data-f="261.63"><ellipse class="head" cx="220" cy="130" rx="11.5" ry="7"/><ellipse class="hole" cx="220" cy="130" rx="5.6" ry="3.8" transform="rotate(-35 220 130)"/></g>
+        <g class="note" data-f="329.63"><ellipse class="head" cx="220" cy="116" rx="11.5" ry="7"/><ellipse class="hole" cx="220" cy="116" rx="5.6" ry="3.8" transform="rotate(-35 220 116)"/></g>
+        <g class="note" data-f="392.00"><ellipse class="head" cx="220" cy="102" rx="11.5" ry="7"/><ellipse class="hole" cx="220" cy="102" rx="5.6" ry="3.8" transform="rotate(-35 220 102)"/></g>
+        <g class="note" data-f="493.88"><ellipse class="head" cx="220" cy="88" rx="11.5" ry="7"/><ellipse class="hole" cx="220" cy="88" rx="5.6" ry="3.8" transform="rotate(-35 220 88)"/></g>
       </svg>
       <button class="play" type="button" id="play">
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>
         Play the chord
       </button>
-      <figcaption>C, E, G and B: the chord we're named after.</figcaption>
+      <figcaption>C, E, G and B: the chord we’re named after.</figcaption>
     </figure>
   </section>
 
@@ -177,12 +185,13 @@ footer a { color: inherit; }
         <li>Perfect loops, and every note lit up as it sounds, with lyrics that fill in karaoke-style.</li>
         <li>On iPhone and the web, in English, Japanese, Korean, Spanish, Portuguese, French and German.</li>
       </ul>
+      <a class="cta" href="mailto:hello@maj7labs.com?subject=ScoreVid%20early%20access">Ask to try it</a>
     </div>
   </section>
 
   <section class="next" aria-labelledby="next">
-    <h3 id="next">What's next</h3>
-    <p>Instruments and effects for your DAW. If you'd like to hear when they're ready, or try ScoreVid early, write to <a href="mailto:hello@maj7labs.com">hello@maj7labs.com</a>.</p>
+    <h3 id="next">What’s next</h3>
+    <p>Instruments and effects for your DAW: electric pianos, strings and odd meters welcome. If you’d like to hear when they’re ready, write to <a href="mailto:hello@maj7labs.com">hello@maj7labs.com</a>.</p>
   </section>
 
 </main>
